@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Error>
+  <Code>NoSuchKey</Code>
+  <Message>The specified key does not exist.</Message>
+  <RequestId>641C5696F27FBE33326A5CC5</RequestId>
+  <HostId>game.maj-soul.com</HostId>
+  <Key>1/v0.10.1.w/audio/sound/fulumeisuizi/act_kan.mp3</Key>
+</Error>

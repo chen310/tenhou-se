@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Error>
+  <Code>NoSuchKey</Code>
+  <Message>The specified key does not exist.</Message>
+  <RequestId>641C5685FDBA0C3836C7407D</RequestId>
+  <HostId>game.maj-soul.com</HostId>
+  <Key>1/v0.10.1.w/audio/sound/zaobanai/act_chi.mp3</Key>
+</Error>
