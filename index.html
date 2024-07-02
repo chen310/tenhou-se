@@ -13,7 +13,7 @@
   <h2>使用方法</h2>
   将链接复制到天凤的 SE 设置中
   <h2>角色列表</h2>
-  <table align="center">
+  <table align="center" border="1px">
     <tr>
       <td class="character">yiji</td>
       <td class="selink"><a href="./character/yiji/se.json" target="_blank">一姬</a></td>
@@ -408,7 +408,87 @@
     li {
       list-style: none;
     }
+    .center {
+      text-align: center;
+    }
+    audio {
+      height:30px;
+      width: 200px;
+    }
+    span {
+      display: inline-block;
+      height: auto;
+      text-align: left;
+    }
+  
   </style>
 </body>
-
+<script>
+  //获取全部角色
+  const characterList = Array.from(document.getElementsByClassName("character")).map(item => item.textContent);
+  console.log(characterList);
+  //获取语音地址
+  const linkTemple = "./character/{id}/";
+const audioTitle = ['act_chi', 'act_kan', 'act_pon', 'act_rich', 'act_ron', 'act_tumo'];
+const audioTitleMap = new Map([
+  ['act_chi','吃'],
+  ['act_kan','杠'],
+  ['act_pon','碰'],
+  ['act_rich','立直'],
+  ['act_ron','荣'],
+  ['act_tumo','自摸'],
+])
+var characterAudioLinkMap = new Map()
+characterList.forEach(item => {
+  characterAudioLinkMap[item] = audioTitle.map(title => `${linkTemple.replace("{id}", item)}${title}.mp3`);
+})
+console.log(characterAudioLinkMap);
+//设置元素
+Array.from(document.getElementsByClassName("selink")).forEach(elem => {
+  const btn = document.createElement('a');
+  btn.href = 'javascript:void(0)'
+  btn.style.margin = '3px'
+  btn.textContent = "预览"
+  btn.addEventListener("click", ()=> {
+    const div = elem.parentElement.nextElementSibling
+    console.log(div);
+    if(btn.textContent === "预览") {
+      div.style.display = 'block'
+      btn.textContent = "关闭"
+    } else {
+      div.style.display = 'none'
+      btn.textContent = "预览"
+    }
+  })
+  elem.appendChild(btn)
+})
+function findValueByKey(map, searchString) {
+  for (let [key, value] of map) {
+    if (searchString.includes(key)) {
+      return value;
+    }
+  }
+  return null; // Return null if no match found
+}
+Array.from(document.getElementsByClassName("character")).forEach(elem => {
+  const tr = document.createElement("tr")
+  tr.style.display = 'none'
+  tr.classList.add("center")
+  const container = elem.parentElement.insertAdjacentElement('afterend', tr)
+  const characters = characterAudioLinkMap[elem.textContent]
+  characters.forEach(audioLink => {
+    audio = new Audio(audioLink)
+    audio.controls = true
+    audio.volume = 0.5
+    audio.preload = 'none'
+    const span = document.createElement("span")
+    span.textContent = findValueByKey(audioTitleMap,audioLink)
+    const td = container.appendChild(document.createElement("td"))
+    td.appendChild(span)
+    td.appendChild(audio)
+  }
+  )
+  
+})
+</script>
 </html>
