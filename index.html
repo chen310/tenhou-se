@@ -409,28 +409,12 @@
     li {
       list-style: none;
     }
-
-    .center {
-      text-align: center;
-    }
-
-    audio {
-      height: 30px;
-      width: 200px;
-    }
-
-    span {
-      display: inline-block;
-      height: auto;
-      text-align: left;
-    }
   </style>
 </body>
 <script>
   //获取全部角色
   const characterList = Array.from(document.getElementsByClassName("character")).map(item => item.textContent);
   //获取语音地址
-  const linkTemple = "./character/{id}/";
   const audioTitle = ['act_chi', 'act_kan', 'act_pon', 'act_rich', 'act_ron', 'act_tumo'];
   const audioTitleMap = new Map([
     ['act_chi', '吃'],
@@ -440,11 +424,10 @@
     ['act_ron', '荣'],
     ['act_tumo', '自摸'],
   ])
-  var characterAudioLinkMap = new Map()
+  const characterAudioLinkMap = new Map()
   characterList.forEach(item => {
-    characterAudioLinkMap[item] = audioTitle.map(title => `${linkTemple.replace("{id}", item)}${title}.mp3`);
+    characterAudioLinkMap[item] = audioTitle.map(title => `./character/${item}/${title}.mp3`);
   })
-  console.log(characterAudioLinkMap);
   //设置元素
   function findValueByKey(map, searchString) {
     for (let [key, value] of map) {
@@ -456,7 +439,6 @@
   }
   Array.from(document.getElementsByClassName("character")).forEach(elem => {
     const td = document.createElement("td")
-    td.classList.add("center")
     const container = elem.parentElement.appendChild(td)
     const characters = characterAudioLinkMap[elem.textContent]
 
@@ -472,9 +454,7 @@
       })
       td.appendChild(audio)
       td.appendChild(a)
-    }
-    )
-
+    })
   })
 </script>
 
